@@ -1,27 +1,9 @@
-console.log('mounted')
+import {SlySlyder} from './components/snap-scroll.js'
+import {SModal} from './components/s-modal.js'
+import {SlyderItem} from './components/slyder-item.js'
+import {VideoComponent} from './components/s-video.js'
 
-customElements.define(
-    "sly-slyder",
-    class extends HTMLElement {
-      constructor() {
-        super();
-        let template = document.getElementById("sly-slyder");
-        let templateContent = template.content;
-        const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.appendChild(templateContent.cloneNode(true));
-      }
-    }
-  );
-  
-  customElements.define(
-    "slyder-item",
-    class extends HTMLElement {
-      constructor() {
-        super();
-        let template = document.getElementById("slyder-item");
-        let templateContent = template.content;
-        const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.appendChild(templateContent.cloneNode(true));
-      }
-    }
-  );
+customElements.define("slyder-item", SlyderItem)
+customElements.define('sly-slyder', SlySlyder)
+customElements.define('s-modal', SModal)
+customElements.define('video-component', VideoComponent)

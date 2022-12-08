@@ -8,73 +8,70 @@
     <title>Custom Elements : Slider</title>
     <style>
         :root{
-            --sly-item-background: rgb(171, 241, 171);
+            --sly-item-background: rgb(242, 245, 242);
             --sly-border: 1px solid green;
-            --sly-item-width: 200px;
-            --sly-container-heigth: 30vh;
+            --sly-item-width: 24vw;
+            --sly-container-height: auto;
             --sly-container-item-gap: 30px;
+            --sly-container-border: none;
         }
         .page-wrapper {
-            border: 1px solid red;
-            margin: 30px;
+            /* margin: 10px; */
             /* min-width: 500px; */
             min-width: calc(var(--sly-item-width) * 1.5);
+        }
+        h2 {
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
-    
-    <template id="sly-slyder">
-        <style>
-            .container {
-                box-sizing: border-box;
-                display: flex;
-                overflow: auto;
-                outline: 1px burlywood solid;
-                flex: none;
-                min-width: calc(var(--sly-item-width) * 1.5);
-                height: var(--sly-container-heigth, 50vh);
-                flex-flow: row nowrap;
-                gap: var(--sly-container-item-gap, 10px);
-            }
-            .x.mandatory-scroll-snapping {
-                scroll-snap-type: x mandatory;
-            }
-        </style>
-        <div class="container x mandatory-scroll-snapping" >
-            <slot></slot>
-        </div>
-    </template>
-    <template id="slyder-item">
-        <style> 
-            .sly-item {
-                box-sizing: border-box;
-                text-align: center;
-                scroll-snap-align: center;
-                flex: none;
-                background: var(--sly-item-background, aliceblue);
-                border: var(--sly-item-border);
-                font-size: 64px;
-                width: var(--sly-item-width, 300px);
-                height: 100%;
-            }
-        </style>
-        <div class="sly-item">
-            <slot></slot>
-        </div>
-    </template>
-
     <main class="page-wrapper">
+       
         <sly-slyder>
-            <slyder-item>1</slyder-item>
-            <slyder-item>2</slyder-item>
-            <slyder-item>3</slyder-item>
-            <slyder-item>4</slyder-item>
-            <slyder-item>5</slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/300" 
+                videoUrl="Y_xlWdgi1ew">
+                <h2>item 1</h2>
+            </slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/300"
+                videoUrl="x_9pslQU9Bk" >
+                <h2>item 2</h2>
+            </slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/300"
+                videoUrl="x_9pslQU9Bk" >
+                <h2>item 2</h2>
+            </slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/300"
+                videoUrl="x_9pslQU9Bk" >
+                <h2>item 2</h2>
+            </slyder-item>
         </sly-slyder>
+        <s-modal showModal="false" onclick="this.setAttribute('showModal', false)">
+            <video-component video-id=""></video-component>
+        </s-modal>
     </main>
       
 
     <script type="module" src="./index.js"></script>
+    <script>
+        function showModal(e) {
+            const modal = document.querySelector('s-modal')
+            const videoId = document.querySelector('video-component')
+            
+            videoId.setAttribute('video-id', e.detail)
+            modal.setAttribute('showModal', true)
+        }
+
+        let slyderItems = document.querySelectorAll('slyder-item')
+        // Dispatch the event
+        for (let i = 0; i < slyderItems.length; i++) {
+            slyderItems[i].addEventListener('showVideo', e => showModal(e))
+        }
+      
+    </script>
 </body>
 </html>
