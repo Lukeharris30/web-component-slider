@@ -9,7 +9,7 @@ class SModal extends HTMLElement {
                     display: block
                 }
                 .modal-open{
-                    position: absolute;
+                    position: fixed;
                     top: 0;
                     bottom: 0;
                     left: 0;
@@ -21,7 +21,6 @@ class SModal extends HTMLElement {
                     flex-direction: column;
                     margin-bottom: 0;
                     align-items: center;
-                    z-index: 100000;
                 }
                 .hide-modal {
                     display: none;
@@ -47,7 +46,7 @@ class SModal extends HTMLElement {
 
         this.render()
         
-        this.addEventListener('showVideo', e => this.toggleModal(e))
+        this.addEventListener('card-click', e => this.toggleModal(e))
         // this.addEventListener('click', e => this.toggleModal(e))
     }
     attributeChangedCallback(name, oldValue, newValue) {

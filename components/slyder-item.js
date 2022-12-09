@@ -17,12 +17,13 @@ class SlyderItem extends HTMLElement {
                 height: 100%;
                 font-family: sans-serif;
                 /* padding: 20px; */
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             }
             .sly-item img{
                 width: 100%;
             }
             .sly-item:hover{
-                transform: scale(1.06);
+                // transform: scale(1.06);
                 transition: ease-in-out .19s;
                 cursor: pointer;
                 box-shadow: 5px 5px 10px 5px rgb(225, 221, 221);
@@ -30,24 +31,41 @@ class SlyderItem extends HTMLElement {
             .sly-item h2 {
                 font-size: 1em;
             }
-            .sly-item-video img{
+            .sly-item-video{
                 position: relative;
             }
-            .sly-item-video img::before{
-                content: "hello";
+            .image-wrapper{
+                position: relative;
+            }
+            .sly-item-video .image-wrapper:before,
+            .sly-item-video .image-wrapper:after{
+                content: "";
                 position: absolute;
-                top: calc(50% - 25px);
-                left: calc(50% - 50px);
-                width: 40px;
-                height: 40px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60px;
+                height: 60px;
                 display: block;
-                border: 2px solid red;
                 border-radius: 50%;
-                padding: 0;
-                margin: 0 auto;
-                user-select: none;
-                background-color: rgba(0, 0, 0, 0.6);
-                transition: background-color 0.5s ease;
+                background-color: hsla(0, 50%, 100%, .8);
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            }
+            .sly-item-video .image-wrapper:after{
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(calc(50% - 20px), -50%) rotate(45deg);
+                width: 0px;
+                height: 0px;
+                border-radius: 0;
+                border-top: 8px solid black;
+                border-right: 8px solid black;
+                border-left: 8px solid transparent;
+                border-bottom: 8px solid transparent;
+                background-color: transparent;
+                box-shadow: none;
             }
         </style>
         `
@@ -56,34 +74,37 @@ class SlyderItem extends HTMLElement {
         this.template.innerHTML += `
         ${css}
             <div class="sly-item">
-                <img src="https://picsum.photos/id/237/300"/>
+                <div class="image-wrapper">
+                    <img src="https://picsum.photos/id/237/300">
+                </div>
                 <slot></slot>
             </div>
         `
+
         this.render()
-      
-        
+
+
         this.videoUrl = this.getAttribute('videoUrl')
         this.imageUrl = this.getAttribute('imgSrc')
 
-        if(this.videoUrl){
-          let videoWrapper = this.shadowRoot.querySelector(".sly-item")
-          videoWrapper.classList.add('sly-item-video')
-          this.addEventListener('click', this.showVideo)
+        if (this.videoUrl) {
+            let videoWrapper = this.shadowRoot.querySelector(".sly-item")
+            videoWrapper.classList.add('sly-item-video')
+            this.addEventListener('click', this.attributeChange)
         }
-          if(this.imageUrl){
-            const image = this.shadowRoot.querySelector('img')       
+        if (this.imageUrl) {
+            const image = this.shadowRoot.querySelector('img')
             image.setAttribute("src", this.getAttribute('imgSrc'))
-          }
-       
-      }
-      render() {
+        }
+
+    }
+    render() {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.appendChild(this.template.content.cloneNode(true));
-      }
-      showVideo(){
-        const event = new CustomEvent('showVideo', {bubbles: true, detail: this.videoUrl})
-        this.dispatchEvent(event)
-      }
     }
-export {SlyderItem}
+    attributeChange() {
+        const event = new CustomEvent('card-click', { bubbles: true, detail: this.videoUrl })
+        this.dispatchEvent(event)
+    }
+}
+export { SlyderItem }

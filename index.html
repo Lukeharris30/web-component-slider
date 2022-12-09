@@ -23,15 +23,17 @@
         h2 {
             font-size: 20px;
         }
+       
     </style>
 </head>
 <body>
     <main class="page-wrapper">
-       
+          
         <sly-slyder>
             <slyder-item 
                 imgSrc="https://picsum.photos/300" 
                 videoUrl="Y_xlWdgi1ew">
+                <!-- <image-with-play-button src="https://picsum.photos/300"></image-with-play-button> -->
                 <h2>item 1</h2>
             </slyder-item>
             <slyder-item 
@@ -69,7 +71,7 @@
         let slyderItems = document.querySelectorAll('slyder-item')
         // Dispatch the event
         for (let i = 0; i < slyderItems.length; i++) {
-            slyderItems[i].addEventListener('showVideo', e => showModal(e))
+            slyderItems[i].addEventListener('card-click', e => showModal(e))
         }
       
     </script>
