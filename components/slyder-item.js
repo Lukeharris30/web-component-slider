@@ -5,22 +5,25 @@ class SlyderItem extends HTMLElement {
         <style> 
             .sly-item {
                 box-sizing: border-box;
-                text-align: center;
                 scroll-snap-align: center;
                 flex: none;
                 background: var(--sly-item-background, aliceblue);
                 border: var(--sly-item-border);
                 font-size: 20px;
                 width: var(--sly-item-width, 300px);
-                min-width: 200px;
+                min-width: 189px;
                 max-width: 400px;
                 height: 100%;
                 font-family: sans-serif;
                 /* padding: 20px; */
                 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             }
+            .sly-item-content{
+                padding: 20px;
+            }
             .sly-item img{
                 width: 100%;
+                display: block;
             }
             .sly-item:hover{
                 // transform: scale(1.06);
@@ -36,6 +39,8 @@ class SlyderItem extends HTMLElement {
             }
             .image-wrapper{
                 position: relative;
+                width: 189px;
+                height: 336px;
             }
             .sly-item-video .image-wrapper:before,
             .sly-item-video .image-wrapper:after{
@@ -44,8 +49,8 @@ class SlyderItem extends HTMLElement {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 60px;
-                height: 60px;
+                width: 46px;
+                height: 46px;
                 display: block;
                 border-radius: 50%;
                 background-color: hsla(0, 50%, 100%, .8);
@@ -56,17 +61,29 @@ class SlyderItem extends HTMLElement {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(calc(50% - 20px), -50%) rotate(45deg);
+                transform: translate(calc(50% - 15px), -50%) rotate(45deg);
                 width: 0px;
                 height: 0px;
                 border-radius: 0;
-                border-top: 8px solid black;
-                border-right: 8px solid black;
-                border-left: 8px solid transparent;
-                border-bottom: 8px solid transparent;
+                border-top: 6px solid black;
+                border-right: 6px solid black;
+                border-left: 6px solid transparent;
+                border-bottom: 6px solid transparent;
                 background-color: transparent;
                 box-shadow: none;
             }
+            .sly-item-video {
+                background: var(--sly-item-background);
+                color: #fff;
+            }
+            .sly-item-video:hover .image-wrapper:before{
+                background: hsla(353,96%, 56%, .7);
+            }
+            .sly-item-video:hover {
+                background: hsl(351, 80%, 50%);
+                color: #fff;
+            }
+
         </style>
         `
 
@@ -77,7 +94,9 @@ class SlyderItem extends HTMLElement {
                 <div class="image-wrapper">
                     <img src="https://picsum.photos/id/237/300">
                 </div>
-                <slot></slot>
+                <div class="sly-item-content">
+                    <slot></slot>
+                </div>
             </div>
         `
 

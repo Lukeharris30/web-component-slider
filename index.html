@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Custom Elements : Slider</title>
+    <link rel="stylesheet" href="./styles/global.css">
     <style>
+        *{
+            box-sizing: border-box;
+        }
         :root{
-            --sly-item-background: rgb(242, 245, 242);
+            --sly-item-background: hsl(0, 0%, 7%);
             --sly-border: 1px solid green;
-            --sly-item-width: 24vw;
+            --sly-item-width: 189px;
             --sly-container-height: auto;
-            --sly-container-item-gap: 30px;
+            --sly-container-item-gap: 20px;
             --sly-container-border: none;
         }
         .page-wrapper {
@@ -31,23 +35,38 @@
           
         <sly-slyder>
             <slyder-item 
-                imgSrc="https://picsum.photos/300" 
+                imgSrc="https://picsum.photos/189/336" 
                 videoUrl="Y_xlWdgi1ew">
                 <!-- <image-with-play-button src="https://picsum.photos/300"></image-with-play-button> -->
-                <h2>item 1</h2>
+                <h2>Roboto <br>Condensed 24</h2>
             </slyder-item>
             <slyder-item 
-                imgSrc="https://picsum.photos/300"
+                imgSrc="https://picsum.photos/189/336"
                 videoUrl="x_9pslQU9Bk" >
                 <h2>item 2</h2>
             </slyder-item>
             <slyder-item 
-                imgSrc="https://picsum.photos/300"
+                imgSrc="https://picsum.photos/189/336"
                 videoUrl="x_9pslQU9Bk" >
                 <h2>item 2</h2>
             </slyder-item>
             <slyder-item 
-                imgSrc="https://picsum.photos/300"
+                imgSrc="https://picsum.photos/189/336"
+                videoUrl="x_9pslQU9Bk" >
+                <h2>item 2</h2>
+            </slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/189/336"
+                videoUrl="x_9pslQU9Bk" >
+                <h2>item 2</h2>
+            </slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/189/336"
+                videoUrl="x_9pslQU9Bk" >
+                <h2>item 2</h2>
+            </slyder-item>
+            <slyder-item 
+                imgSrc="https://picsum.photos/189/336"
                 videoUrl="x_9pslQU9Bk" >
                 <h2>item 2</h2>
             </slyder-item>

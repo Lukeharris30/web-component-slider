@@ -1,4 +1,4 @@
-import {SlySlyder} from './components/snap-scroll.js'
+import {SlySlyder} from './components/sly-slyder.js'
 import {SModal} from './components/s-modal.js'
 import {SlyderItem} from './components/slyder-item.js'
 import {VideoComponent} from './components/s-video.js'
