@@ -18,11 +18,17 @@
             --sly-container-height: auto;
             --sly-container-item-gap: 20px;
             --sly-container-border: none;
+            --button-width: 50px;
+            --button-arrow-color: gray;
+            --button-arrow-thickness: 1px;
         }
         .page-wrapper {
             /* margin: 10px; */
             /* min-width: 500px; */
             min-width: calc(var(--sly-item-width) * 1.5);
+            width: 80vw;
+            max-width: 1100px;
+            margin: auto;
         }
         h2 {
             font-size: 20px;
@@ -32,7 +38,7 @@
 </head>
 <body>
     <main class="page-wrapper">
-          
+        <h1>Go Primitive</h1>
         <sly-slyder>
             <slyder-item 
                 imgSrc="https://picsum.photos/189/336" 
@@ -79,6 +85,10 @@
 
     <script type="module" src="./index.js"></script>
     <script>
+
+        //todo: set up attr and prop reflection.
+        //consider whether it is possible to refactor this into the other component.
+        // implement buttons
         function showModal(e) {
             const modal = document.querySelector('s-modal')
             const videoId = document.querySelector('video-component')
@@ -92,6 +102,7 @@
         for (let i = 0; i < slyderItems.length; i++) {
             slyderItems[i].addEventListener('card-click', e => showModal(e))
         }
+    
       
     </script>
 </body>
