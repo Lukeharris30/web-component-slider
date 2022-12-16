@@ -22,8 +22,9 @@ customElements.define('arrow-button', ArrowButton)
                     -ms-overflow-style: none;
                     scrollbar-width: none;
                     padding: 30px 0;
-                    width: calc(100% - calc(var(--button-width) * 4));
+                    width: 100%;
                     margin: auto;
+                    scroll-behavior: smooth;
                 }
                 .container::-webkit-scrollbar {
                     display: none;
@@ -49,24 +50,35 @@ customElements.define('arrow-button', ArrowButton)
                     top: 50%;
                     transform:  translate(0%, -50%) rotate(180deg);
                 }
+                .desktop-only{
+                    display: none;
+                }
+                @media (min-width: 900px){
+                    .desktop-only {
+                        display: block;
+                    }
+                    .container {
+                        width: calc(100% - calc(var(--button-width) * 4));
+        
+                    }
+                }
             </style>
             `
             this.template = document.createElement("template");
             this.template.innerHTML += `
             ${css}
             <div class="sly-slyder-wrapper">
-                <arrow-button class="btn-right"></arrow-button>
-                <arrow-button class="btn-left"></arrow-button>
+                <arrow-button class="btn-right desktop-only" ></arrow-button>
+                <arrow-button class="btn-left desktop-only"></arrow-button>
                 <div class="container x mandatory-scroll-snapping" >
                     <slot></slot>
                 </div>
             </div>
             `
-
             
             this.render()
-            console.log(this.container, 'container')
-            this.container = this.shadowRoot.querySelector('.container')
+            // console.log(this.container, 'container')
+            // this.container = this.shadowRoot.querySelector('.container')
         }
         
 
@@ -74,14 +86,26 @@ customElements.define('arrow-button', ArrowButton)
             let templateContent = this.template.content;
             const shadowRoot = this.attachShadow({ mode: "open" });
             shadowRoot.appendChild(templateContent.cloneNode(true));
+            console.log('rendering')
         }
-        slideLeft(){
-            
-                // let slideArea = this.shadowRoot.querySelector('.container')
-                this.scroolLeft = this.scrollLeft + 189
-            console.log('sliding left', this.scrollLeft)
-            
-            
+         slideLeft(){
+            console.log('sliding', this.container)
+            // let slideArea = this.shadowRoot.querySelector('.container')
+            // this.scroolLeft = this.scrollLeft + 189
+            // console.log('sliding left', this.scrollLeft)
+        }
+        connectedCallback() {
+            let shadowRoot = this.shadowRoot
+            this.container = shadowRoot.querySelector('.container')
+            console.log(shadowRoot.querySelector('.container'), 'from callback')
+            shadowRoot.querySelector('.btn-right').addEventListener('click', (e) => {
+                console.log('slidng', this.container)
+                this.container.scrollLeft += 189
+            })
+            shadowRoot.querySelector('.btn-left').addEventListener('click', (e) => {
+                console.log('slidng', this.container)
+                this.container.scrollLeft -= 189
+            })
         }
     }
 

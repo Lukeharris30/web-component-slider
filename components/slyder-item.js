@@ -109,7 +109,7 @@ class SlyderItem extends HTMLElement {
         if (this.videoUrl) {
             let videoWrapper = this.shadowRoot.querySelector(".sly-item")
             videoWrapper.classList.add('sly-item-video')
-            this.addEventListener('click', this.attributeChange)
+            this.addEventListener('click', this.emitEvent)
         }
         if (this.imageUrl) {
             const image = this.shadowRoot.querySelector('img')
@@ -121,7 +121,7 @@ class SlyderItem extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.appendChild(this.template.content.cloneNode(true));
     }
-    attributeChange() {
+    emitEvent() {
         const event = new CustomEvent('card-click', { bubbles: true, detail: this.videoUrl })
         this.dispatchEvent(event)
     }

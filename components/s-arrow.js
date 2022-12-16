@@ -38,18 +38,26 @@ class ArrowButton extends HTMLElement{
                 background: var(--button-arrow-color);
                 position: absolute;
             }
+            .btn:hover{
+                background: hsla(0, 10%, 98%, .2);
+                border: 1px solid black;
+            }
         </style>
         `
         this.template = document.createElement("template")
         this.template.innerHTML += `
         ${css}
-            <button  title="right" class="btn btn-right" onclick="console.log('hello')"></button>
+            <button title="right" class="btn btn-right" onclick="console.log('hello')"></button>
         `
         this.render()
     }
     render() {
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.appendChild(this.template.content.cloneNode(true))
+    }
+    emitEvent() {
+        const event = new CustomEvent('arrow-button-click', { bubbles: true })
+        this.dispatchEvent(event)
     }
 }
 
