@@ -19,7 +19,12 @@ class SlyderItem extends HTMLElement {
                 box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
             }
             .sly-item-content{
-                padding: 20px;
+                padding: 20px 94px 20px 20px;
+            }
+            ::slotted(h2){
+                margin-top: 0;
+                margin-bottom: 0;
+
             }
             .sly-item img{
                 width: 100%;

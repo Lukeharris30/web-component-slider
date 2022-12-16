@@ -77,8 +77,20 @@ customElements.define('arrow-button', ArrowButton)
             `
             
             this.render()
-            // console.log(this.container, 'container')
-            // this.container = this.shadowRoot.querySelector('.container')
+            
+            let shadowRoot = this.shadowRoot
+            this.container = shadowRoot.querySelector('.container')
+            console.log(shadowRoot.querySelector('.container'), 'from callback')
+            
+            //configure buttons
+            shadowRoot.querySelector('.btn-right').addEventListener('click', (e) => {
+                console.log('slidng', this.container)
+                this.container.scrollLeft += 189
+            })
+            shadowRoot.querySelector('.btn-left').addEventListener('click', (e) => {
+                console.log('slidng', this.container)
+                this.container.scrollLeft -= 189
+            })
         }
         
 
@@ -88,24 +100,7 @@ customElements.define('arrow-button', ArrowButton)
             shadowRoot.appendChild(templateContent.cloneNode(true));
             console.log('rendering')
         }
-         slideLeft(){
-            console.log('sliding', this.container)
-            // let slideArea = this.shadowRoot.querySelector('.container')
-            // this.scroolLeft = this.scrollLeft + 189
-            // console.log('sliding left', this.scrollLeft)
-        }
         connectedCallback() {
-            let shadowRoot = this.shadowRoot
-            this.container = shadowRoot.querySelector('.container')
-            console.log(shadowRoot.querySelector('.container'), 'from callback')
-            shadowRoot.querySelector('.btn-right').addEventListener('click', (e) => {
-                console.log('slidng', this.container)
-                this.container.scrollLeft += 189
-            })
-            shadowRoot.querySelector('.btn-left').addEventListener('click', (e) => {
-                console.log('slidng', this.container)
-                this.container.scrollLeft -= 189
-            })
         }
     }
 
