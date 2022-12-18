@@ -26,6 +26,12 @@ customElements.define('arrow-button', ArrowButton)
                     margin: auto;
                     scroll-behavior: smooth;
                 }
+                .container.active{
+                    cursor: grabbing;
+                }
+                .container.active * {
+                    cursor: grabbing;
+                }
                 .container::-webkit-scrollbar {
                     display: none;
                 }
@@ -91,6 +97,33 @@ customElements.define('arrow-button', ArrowButton)
                 console.log('slidng', this.container)
                 this.container.scrollLeft -= 189
             })
+
+            //configure grab and slide
+            let isDown = false
+            let startX = 0;
+            this.scrollLeft=0
+            
+            this.container.addEventListener('mousedown',(e) => {
+                isDown = true
+                this.container.classList.add('active')
+            })
+
+            this.container.addEventListener('mouseup', () => {
+                isDown = false;
+                this.container.classList.remove('active');
+            });
+
+            this.container.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - this.container.offsetLeft;
+                const walk = (x - startX) * 3; //scroll-fast
+                this.container.scrollLeft = 
+                // 187
+                this.scrollLeft - walk;
+                console.log(walk);
+              });
+
         }
         
 
