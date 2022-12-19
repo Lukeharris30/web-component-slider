@@ -1,10 +1,10 @@
-import {ArrowButton} from './s-arrow.js'
+import { ArrowButton } from './s-arrow.js'
 
 customElements.define('arrow-button', ArrowButton)
-    class SlySlyder extends HTMLElement {
-        constructor() {
-            super();
-            const css = `
+class SlySlyder extends HTMLElement {
+    constructor() {
+        super();
+        const css = `
             <style>
                 *, *:before, *:after {
                     box-sizing: border-box;
@@ -70,8 +70,8 @@ customElements.define('arrow-button', ArrowButton)
                 }
             </style>
             `
-            this.template = document.createElement("template");
-            this.template.innerHTML += `
+        this.template = document.createElement("template");
+        this.template.innerHTML += `
             ${css}
             <div class="sly-slyder-wrapper">
                 <arrow-button class="btn-right desktop-only" ></arrow-button>
@@ -81,60 +81,62 @@ customElements.define('arrow-button', ArrowButton)
                 </div>
             </div>
             `
-            
-            this.render()
-            
-            let shadowRoot = this.shadowRoot
-            this.container = shadowRoot.querySelector('.container')
-            console.log(shadowRoot.querySelector('.container'), 'from callback')
-            
-            //configure buttons
-            shadowRoot.querySelector('.btn-right').addEventListener('click', (e) => {
-                console.log('slidng', this.container)
-                this.container.scrollLeft += 189
-            })
-            shadowRoot.querySelector('.btn-left').addEventListener('click', (e) => {
-                console.log('slidng', this.container)
-                this.container.scrollLeft -= 189
-            })
 
-            //configure grab and slide
-            let isDown = false
-            let startX = 0;
-            this.scrollLeft=0
-            
-            this.container.addEventListener('mousedown',(e) => {
-                isDown = true
-                this.container.classList.add('active')
-            })
+        this.render()
 
-            this.container.addEventListener('mouseup', () => {
-                isDown = false;
-                this.container.classList.remove('active');
-            });
+        let shadowRoot = this.shadowRoot
+        this.container = shadowRoot.querySelector('.container')
+        console.log(shadowRoot.querySelector('.container'), 'from callback')
 
-            this.container.addEventListener('mousemove', (e) => {
-                if(!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - this.container.offsetLeft;
-                const walk = (x - startX) * 3; //scroll-fast
-                this.container.scrollLeft = 
-                // 187
-                this.scrollLeft - walk;
-                console.log(walk);
-              });
+        //configure buttons
+        shadowRoot.querySelector('.btn-right').addEventListener('click', (e) => {
+            console.log('slidng', this.container)
+            this.container.scrollLeft += 189
+        })
+        shadowRoot.querySelector('.btn-left').addEventListener('click', (e) => {
+            console.log('slidng', this.container)
+            this.container.scrollLeft -= 189
+        })
 
-        }
-        
+        const slider = this.container;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-        render(){
-            let templateContent = this.template.content;
-            const shadowRoot = this.attachShadow({ mode: "open" });
-            shadowRoot.appendChild(templateContent.cloneNode(true));
-            console.log('rendering')
-        }
-        connectedCallback() {
-        }
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 3; //scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+            console.log(walk);
+        });
+
     }
 
-  export {SlySlyder}
+
+    render() {
+        let templateContent = this.template.content;
+        const shadowRoot = this.attachShadow({ mode: "open" });
+        shadowRoot.appendChild(templateContent.cloneNode(true));
+        console.log('rendering')
+    }
+    connectedCallback() {
+    }
+}
+
+export { SlySlyder }
