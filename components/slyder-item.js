@@ -118,6 +118,12 @@ class SlyderItem extends HTMLElement {
         }
         if (this.imageUrl) {
             const image = this.shadowRoot.querySelector('img')
+            
+            // disallow image drag
+            image.ondragstart = () => {
+                return false;
+            };
+
             image.setAttribute("src", this.getAttribute('imgSrc'))
         }
 
