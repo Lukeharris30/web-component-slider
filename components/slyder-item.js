@@ -107,7 +107,6 @@ class SlyderItem extends HTMLElement {
 
         this.render()
 
-        // this should all be in connectedCallback
         this.videoUrl = this.getAttribute('videoUrl')
         this.imageUrl = this.getAttribute('imgSrc')
 

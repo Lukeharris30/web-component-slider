@@ -24,7 +24,7 @@ class SlySlyder extends HTMLElement {
                     padding: 30px 0;
                     width: 100%;
                     margin: auto;
-                    scroll-behavior: smooth;
+                    scroll-behavior: smooth !important;
                 }
                 .container.active{
                     cursor: grabbing;
@@ -87,15 +87,27 @@ class SlySlyder extends HTMLElement {
         let shadowRoot = this.shadowRoot
         this.container = shadowRoot.querySelector('.container')
         console.log(shadowRoot.querySelector('.container'), 'from callback')
-
+        
+        this.childrenItems = this.querySelectorAll('slyder-item')
+        this.firstChildCard =  {item: this.childrenItems[0], inView: false}
+        this.lastChildCard = {item: this.childrenItems[this.childrenItems.length -1], inView: false}
+        
         //configure buttons
         shadowRoot.querySelector('.btn-right').addEventListener('click', (e) => {
             console.log('slidng', this.container)
+            this.firstChildCard = {...this.firstChildCard, inView: this.isInViewport(this.childrenItems[0])}
+            this.lastChildCard = {...this.firstChildCard, inView: this.isInViewport(this.childrenItems[this.childrenItems.length -1])}
             this.container.scrollLeft += 189
+            console.log('first card view', this.firstChildCard)
+            console.log('last card view', this.lastChildCard)
         })
         shadowRoot.querySelector('.btn-left').addEventListener('click', (e) => {
             console.log('slidng', this.container)
             this.container.scrollLeft -= 189
+            this.firstChildCard = {...this.firstChildCard, inView: this.isInViewport(this.childrenItems[0])}
+            this.lastChildCard = {...this.firstChildCard, inView: this.isInViewport(this.childrenItems[this.childrenItems.length -1])}
+            console.log('first card view', this.firstChildCard)
+            console.log('last card view', this.lastChildCard)
         })
 
         const slider = this.container;
@@ -135,6 +147,16 @@ class SlySlyder extends HTMLElement {
         shadowRoot.appendChild(templateContent.cloneNode(true));
         console.log('rendering')
     }
+    isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
     connectedCallback() {
     }
 }
